@@ -88,7 +88,6 @@
   <script>
     const contentDiv = document.getElementById('content');
     
-    // MINIMAL CHANGE 2: Wrap fetch in event listener targeting the button
     document.querySelector('.button1').addEventListener('click', () => {
       fetch('https://api.quotable.io/random')
       .then((response) => {
