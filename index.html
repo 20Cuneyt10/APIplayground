@@ -3,8 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>API Dashboard</title>
+  <title>API Playground</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <style>
+    .button {
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      width: 100%; 
+    }
+
+    .button1 {
+      background-color: white;
+      color: black;
+      border: 2px solid #04AA6D;
+    }
+    .button1:hover {
+      background-color: #04AA6D;
+      color: white;
+    }
+
+    .button2 {
+      background-color: white;
+      color: black;
+      border: 2px solid #008CBA;
+    }
+    .button2:hover {
+      background-color: #008CBA;
+      color: white;
+    }
+
+    .button3 {
+      background-color: white;
+      color: black;
+      border: 2px solid #ba6300;
+    }
+    .button3:hover {
+      background-color: #ba7900bb;
+      color: white;
+    }
+
+    .button4 {
+      background-color: white;
+      color: black;
+      border: 2px solid #ba0073;
+    }
+    .button4:hover {
+      background-color: #ce0b83;
+      color: white;
+    }
+
+    .button5 {
+      background-color: white;
+      color: black;
+      border: 2px solid #ba0000;
+    }
+    .button5:hover {
+      background-color: #ce420b;
+      color: white;
+    }
+  </style>
 </head>
 <body class="bg-light py-5">
 
@@ -15,7 +81,7 @@
       <div class="card-header bg-dark text-white fw-semibold">Quotable API</div>
       <div class="card-body">
         <div id="content" class="text-muted my-3">Loading...</div>
-        <button class="btn btn-success w-100 fw-bold py-2 button1">Get Random Quote</button>
+        <button class="button button1">Click Me!</button> 
       </div>
     </div>
 
@@ -23,15 +89,15 @@
       <div class="card-header bg-dark text-white fw-semibold">Advice API</div>
       <div class="card-body">
         <div id="content2" class="text-muted my-3">Loading...</div>
-        <button class="btn btn-primary w-100 fw-bold py-2 button2">Get Advice</button>
+        <button class="button button2">Click Me!</button> 
       </div>
     </div>
 
     <div class="card shadow-sm mb-4">
-      <div class="card-header bg-dark text-white fw-semibold">Dog Image API</div>
+      <div class="card-header bg-dark text-white fw-semibold">Dog API</div>
       <div class="card-body">
         <div id="content3" class="text-muted my-3 text-center">Loading...</div>
-        <button class="btn btn-warning w-100 fw-bold py-2 text-white button3">Get Dog Photo</button>
+        <button class="button button3">Click Me!</button> 
       </div>
     </div>
 
@@ -39,51 +105,74 @@
       <div class="card-header bg-dark text-white fw-semibold">Cat Info API</div>
       <div class="card-body">
         <div id="content4" class="text-muted my-3">Loading...</div>
-        <button class="btn btn-info w-100 fw-bold py-2 text-white button4">Get Cat Fact</button>
+        <button class="button button4">Click Me!</button> 
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-dark text-white fw-semibold">Decider API</div>
+      <div class="card-body">
+        <div id="content5" class="text-muted my-3">Ask a Yes/No question and it shall be answered</div>
+        <button class="button button5">Click Me!</button> 
       </div>
     </div>
 
   </div>
 
   <script>
-    // 1. Quotable
+    const clickSound = new Audio('click-sound.wav');
+    function playSound() {
+      clickSound.currentTime = 0; //so we can double,triple,howmanyyouwantuple click and get the sound restarted
+      clickSound.play();
+    }
     const contentDiv = document.getElementById('content');
     document.querySelector('.button1').addEventListener('click', () => {
+      playSound();
       fetch('https://api.quotable.io/random')
-        .then(res => res.json())
+        .then(response => response.json())
         .then(data => {
-          contentDiv.innerHTML = `<p class="mb-0"><strong>Quote:</strong> "${data.content}" <br><span class="text-secondary">- ${data.author}</span></p>`;
-        })
+          contentDiv.innerHTML = `<p class="mb-0"><strong>Quote:</strong> ${data.content} <br><span class="text-muted">- ${data.author}</span></p>`;
+        });
     });
 
-    // 2. Advice (Using Quotable placeholder for stability)
     const contentDiv2 = document.getElementById('content2');
     document.querySelector('.button2').addEventListener('click', () => {
-      fetch('https://api.quotable.io/random')
-        .then(res => res.json())
+      playSound();
+      fetch('https://official-joke-api.appspot.com/random_joke')
+        .then(response => response.json())
         .then(data => {
-          contentDiv2.innerHTML = `<p class="mb-0"><strong>Quote:</strong> "${data.content}"</p>`;
-        })
+          contentDiv2.innerHTML = `<p class="mb-1"><strong>Joke:</strong> ${data.setup}</p><p class="text-success mb-0"><em>${data.punchline}</em></p>`;
+        });
     });
 
-    // 3. Dog API (Outputs proper image rendering)
     const contentDiv3 = document.getElementById('content3');
     document.querySelector('.button3').addEventListener('click', () => {
+      playSound();
       fetch('https://dog.ceo/api/breeds/image/random')
-        .then(res => res.json())
+        .then(response => response.json())
         .then(data => {
-          contentDiv3.innerHTML = `<img src="${data.message}" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-height: 300px;" alt="Dog">`;
-        })
+          contentDiv3.innerHTML = `<img src="${data.message}" alt="Random Dog" class="img-fluid rounded shadow-sm mx-auto d-block" style="max-height: 250px;">`;
+        });
     });
 
-    // 4. Cat Fact
     const contentDiv4 = document.getElementById('content4');
     document.querySelector('.button4').addEventListener('click', () => {
+      playSound();
       fetch('https://catfact.ninja/fact')
-        .then(res => res.json())
+        .then(response => response.json())
         .then(data => {
-          contentDiv4.innerHTML = `<p class="mb-0"><strong>Fact:</strong> ${data.fact}</p>`;
-        })
+          contentDiv4.innerHTML = `<p class="mb-0"><strong>Cat Fact:</strong> ${data.fact}</p>`;
+        });
+    });
+
+    const contentDiv5 = document.getElementById('content5');
+    document.querySelector('.button5').addEventListener('click', () => {
+      playSound();
+      fetch('https://yesno.wtf/api')//might need visual change 
+        .then(response => response.json())
+        .then(data => {
+          contentDiv5.innerHTML = `<p class="mb-0 text-uppercase fw-bold fs-4 text-center">Answer: ${data.answer}</p>`;
+        });
     });
   </script>
 </body>
