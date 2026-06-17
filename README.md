@@ -1,6 +1,8 @@
 # API Playground
 This is a project scrapped together from w3schools, 5-6 youtube tutorials,some websites such as MDN's documents and a random modern card code I found whilst looking for style.
 
+Link for the project: https://20cuneyt10.github.io/APIplayground/
+
  This project currently has 5 Active API's but I'm always on the lookout for new ones, you are free to leave your own suggestions or API's for me to try to put on the website.
  
  ## API'S
