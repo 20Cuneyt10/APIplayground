@@ -120,6 +120,59 @@
   </div>
 
   <script>
+    const fallbackQuotes = [
+      {"q":"The only limit to our realization of tomorrow is our doubts of today.","a":"Franklin D. Roosevelt"},
+      {"q":"Do what you can, with what you have, where you are.","a":"Theodore Roosevelt"},
+      {"q":"It does not matter how slowly you go as long as you do not stop.","a":"Confucius"},
+      {"q":"In the middle of every difficulty lies opportunity.","a":"Albert Einstein"},
+      {"q":"Success is not final, failure is not fatal: it is the courage to continue that counts.","a":"Winston Churchill"},
+      {"q":"Believe you can and you're halfway there.","a":"Theodore Roosevelt"},
+      {"q":"The future belongs to those who believe in the beauty of their dreams.","a":"Eleanor Roosevelt"},
+      {"q":"The only way to do great work is to love what you do.","a":"Steve Jobs"},
+      {"q":"Life is what happens when you're busy making other plans.","a":"John Lennon"},
+      {"q":"Get busy living or get busy dying.","a":"Stephen King"},
+      {"q":"You miss 100% of the shots you don't take.","a":"Wayne Gretzky"},
+      {"q":"Whether you think you can or you think you can't, you're right.","a":"Henry Ford"},
+      {"q":"The best time to plant a tree was 20 years ago. The second best time is now.","a":"Chinese Proverb"},
+      {"q":"An unexamined life is not worth living.","a":"Socrates"},
+      {"q":"The journey of a thousand miles begins with one step.","a":"Lao Tzu"},
+      {"q":"That which does not kill us makes us stronger.","a":"Friedrich Nietzsche"},
+      {"q":"Imagination is more important than knowledge.","a":"Albert Einstein"},
+      {"q":"The only true wisdom is in knowing you know nothing.","a":"Socrates"},
+      {"q":"Be the change that you wish to see in the world.","a":"Mahatma Gandhi"},
+      {"q":"In three words I can sum up everything I've learned about life: it goes on.","a":"Robert Frost"},
+      {"q":"If you tell the truth, you don't have to remember anything.","a":"Mark Twain"},
+      {"q":"To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.","a":"Ralph Waldo Emerson"},
+      {"q":"Two roads diverged in a wood, and I took the one less traveled by.","a":"Robert Frost"},
+      {"q":"The only impossible journey is the one you never begin.","a":"Tony Robbins"},
+      {"q":"What lies behind us and what lies before us are tiny matters compared to what lies within us.","a":"Ralph Waldo Emerson"},
+      {"q":"It is never too late to be what you might have been.","a":"George Eliot"},
+      {"q":"Everything you've ever wanted is on the other side of fear.","a":"George Addair"},
+      {"q":"We are what we repeatedly do. Excellence, then, is not an act, but a habit.","a":"Aristotle"},
+      {"q":"The purpose of life is not to be happy. It is to be useful, to be honorable, to be compassionate.","a":"Ralph Waldo Emerson"},
+      {"q":"Great minds discuss ideas; average minds discuss events; small minds discuss people.","a":"Eleanor Roosevelt"},
+      {"q":"Happiness is not something ready made. It comes from your own actions.","a":"Dalai Lama"},
+      {"q":"The best revenge is massive success.","a":"Frank Sinatra"},
+      {"q":"I have not failed. I've just found 10,000 ways that won't work.","a":"Thomas Edison"},
+      {"q":"A person who never made a mistake never tried anything new.","a":"Albert Einstein"},
+      {"q":"The mind is everything. What you think you become.","a":"Buddha"},
+      {"q":"The secret of getting ahead is getting started.","a":"Mark Twain"},
+      {"q":"It is during our darkest moments that we must focus to see the light.","a":"Aristotle"},
+      {"q":"Don't judge each day by the harvest you reap but by the seeds that you plant.","a":"Robert Louis Stevenson"},
+      {"q":"The only person you are destined to become is the person you decide to be.","a":"Ralph Waldo Emerson"},
+      {"q":"If you want to lift yourself up, lift up someone else.","a":"Booker T. Washington"},
+      {"q":"The greatest glory in living lies not in never falling, but in rising every time we fall.","a":"Nelson Mandela"},
+      {"q":"Life is really simple, but we insist on making it complicated.","a":"Confucius"},
+      {"q":"The only way to have a friend is to be one.","a":"Ralph Waldo Emerson"},
+      {"q":"The best and most beautiful things in the world cannot be seen or even touched — they must be felt with the heart.","a":"Helen Keller"},
+      {"q":"Try not to become a man of success, but rather try to become a man of value.","a":"Albert Einstein"},
+      {"q":"Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.","a":"Thomas Edison"},
+      {"q":"The only thing we have to fear is fear itself.","a":"Franklin D. Roosevelt"},
+      {"q":"It is not the strongest of the species that survive, nor the most intelligent, but the one most responsive to change.","a":"Charles Darwin"},
+      {"q":"The measure of who we are is what we do with what we have.","a":"Vince Lombardi"},
+      {"q":"Act as if what you do makes a difference. It does.","a":"William James"}
+    ];
+
     const clickSound = new Audio('click-sound.wav');
     function playSound() {
       clickSound.currentTime = 0; //so we can double,triple,howmanyyouwantuple click and get the sound restarted
@@ -132,6 +185,10 @@
         .then(response => response.json())
         .then(data => {
           contentDiv.innerHTML = `<p class="mb-0"><strong>Quote:</strong> ${data.content} <br><span class="text-muted">- ${data.author}</span></p>`;
+        })
+        .catch(() => {
+          const q = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
+          contentDiv.innerHTML = `<p class="mb-0"><strong>Quote:</strong> ${q.q} <br><span class="text-muted">- ${q.a}</span></p>`;
         });
     });
 
@@ -175,5 +232,18 @@
         });
     });
   </script>
+
+  <div class="container" style="max-width: 600px; margin-top: 50px; margin-bottom: 40px;">
+    <hr class="mb-4">
+    <h5 class="fw-bold text-secondary mb-3">API Links</h5>
+    <ul class="list-unstyled small text-muted">
+      <li class="mb-1"><strong>1.</strong> <a href="https://api.quotable.io/" target="_blank">quotable.io</a> — Quotes</li>
+      <li class="mb-1"><strong>2.</strong> <a href="https://github.com/15Dkatz/official_joke_api" target="_blank">official-joke-api</a> — Jokes</li>
+      <li class="mb-1"><strong>3.</strong> <a href="https://dog.ceo/dog-api/" target="_blank">dog.ceo</a> — Dog images</li>
+      <li class="mb-1"><strong>4.</strong> <a href="https://catfact.ninja/" target="_blank">catfact.ninja</a> — Cat facts</li>
+      <li class="mb-1"><strong>5.</strong> <a href="https://yesno.wtf/" target="_blank">yesno.wtf</a> — Yes/No</li>
+    </ul>
+  </div>
+
 </body>
 </html>
