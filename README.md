@@ -7,7 +7,7 @@ Link for the project: https://20cuneyt10.github.io/APIplayground/
  
  ## API'S
 
-- Quotable API (quotable.io)
+- Quotes API (quotable.io)/(zenquotes.io)
 - Joke API (https://official-joke-api.appspot.com/random_joke)
 - Dog Photo API (https://dog.ceo/api/breeds/image/random)
 - Cat Fact API (https://catfact.ninja/fact)
