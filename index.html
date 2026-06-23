@@ -78,7 +78,10 @@
     <h1 class="text-center mb-5 fw-bold text-secondary">API Playground</h1>
 
     <div class="card shadow-sm mb-4">
-      <div class="card-header bg-dark text-white fw-semibold">Quotable API</div>
+      <div class="card-header bg-dark text-white fw-semibold d-flex justify-content-between align-items-center">
+        Quotes API
+        <span id="apiToggle" style="cursor:pointer;font-size:11px;background:#2a6a2a;color:white;padding:2px 12px;border-radius:12px;border:1px solid #4ade80;user-select:none;" title="Click to switch API">◉ quotable</span>
+      </div>
       <div class="card-body">
         <div id="content" class="text-muted my-3">Loading...</div>
         <button class="button button1">Click Me!</button> 
@@ -179,17 +182,33 @@
       clickSound.play();
     }
     const contentDiv = document.getElementById('content');
-    document.querySelector('.button1').addEventListener('click', () => {
-      playSound();
-      fetch('https://api.quotable.io/random')
-        .then(response => response.json())
-        .then(data => {
-          contentDiv.innerHTML = `<p class="mb-0"><strong>Quote:</strong> ${data.content} <br><span class="text-muted">- ${data.author}</span></p>`;
+    const apiToggle = document.getElementById('apiToggle');
+    let useZen = false;
+
+    apiToggle.addEventListener('click', () => {
+      useZen = !useZen;
+      apiToggle.textContent = useZen ? '◉ zenquotes' : '◉ quotable';
+    });
+
+    function fetchQuote() {
+      const url = useZen
+        ? 'https://zenquotes.io/api/random'
+        : 'https://api.quotable.io/random';
+      fetch(url)
+        .then(r => r.json())
+        .then(d => {
+          const q = useZen ? d[0] : d;
+          contentDiv.innerHTML = `<p class="mb-0"><strong>Quote:</strong> ${q.q || q.content} <br><span class="text-muted">- ${q.a || q.author}</span></p>`;
         })
         .catch(() => {
           const q = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
           contentDiv.innerHTML = `<p class="mb-0"><strong>Quote:</strong> ${q.q} <br><span class="text-muted">- ${q.a}</span></p>`;
         });
+    }
+
+    document.querySelector('.button1').addEventListener('click', () => {
+      playSound();
+      fetchQuote();
     });
 
     const contentDiv2 = document.getElementById('content2');
@@ -237,7 +256,7 @@
     <hr class="mb-4">
     <h5 class="fw-bold text-secondary mb-3">API Links</h5>
     <ul class="list-unstyled small text-muted">
-      <li class="mb-1"><strong>1.</strong> <a href="https://api.quotable.io/" target="_blank">quotable.io</a> — Quotes</li>
+      <li class="mb-1"><strong>1.</strong> <a href="https://api.quotable.io/" target="_blank">quotable.io</a> / <a href="https://zenquotes.io/" target="_blank">zenquotes.io</a> — Quotes (switchable)</li>
       <li class="mb-1"><strong>2.</strong> <a href="https://github.com/15Dkatz/official_joke_api" target="_blank">official-joke-api</a> — Jokes</li>
       <li class="mb-1"><strong>3.</strong> <a href="https://dog.ceo/dog-api/" target="_blank">dog.ceo</a> — Dog images</li>
       <li class="mb-1"><strong>4.</strong> <a href="https://catfact.ninja/" target="_blank">catfact.ninja</a> — Cat facts</li>
